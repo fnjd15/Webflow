@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Hover Interaction</title>
+    <style>
+        /* Your CSS styles go here */
+        .home-v3-wrapper {
+            display: flex;
+        }
+
+        .home-v3-wrapper .project-item {
+            /* Define the default styles */
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .home-v3-wrapper .project-item.is-active {
+            /* Add additional styles for the active state */
+            border-color: #007bff;
+        }
+
+        .dyn-desc {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Your HTML structure -->
+<div class="home-v3-wrapper">
+    <div class="project-item">
+        <div class="Proj-desc">Description 1</div>
+    </div>
+    <div class="project-item">
+        <div class="Proj-desc">Description 2</div>
+    </div>
+    <!-- Add more project items as needed -->
+</div>
+
+<div class="project-names">
+    <div>Project 1</div>
+    <div>Project 2</div>
+    <!-- Add more project names as needed -->
+</div>
+
+<div class="dyn-desc">
+    <p>Dynamic Description Here</p>
+</div>
+
+<script>
+    // Your JavaScript code goes here
+    const projectItems = document.querySelectorAll('.project-item');
+    const projectNames = document.querySelectorAll('.project-names div');
+    const dynDesc = document.querySelector('.dyn-desc p');
+
+    projectNames.forEach(function (name, index) {
+        name.addEventListener('mouseover', function () {
+            // Remove is-active class from all project items
+            projectItems.forEach(item => item.classList.remove('is-active'));
+            
+            // Add is-active class to the corresponding project item
+            projectItems[index].classList.add('is-active');
+
+            // Update the text in .dyn-desc based on the content of .Proj-desc
+            const projDesc = projectItems[index].querySelector('.Proj-desc');
+            if (projDesc) {
+                dynDesc.textContent = projDesc.textContent;
+            }
+        });
+
+        name.addEventListener('mouseout', function () {
+            // Remove is-active class from all project items when mouse leaves the project name
+            projectItems.forEach(item => item.classList.remove('is-active'));
+            dynDesc.textContent = ''; // Reset the text when mouse leaves
+        });
+    });
+</script>
+
+</body>
+</html>
